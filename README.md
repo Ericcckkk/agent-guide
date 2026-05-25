@@ -17,6 +17,8 @@
 | `server-infra.md` | 我的服务器环境信息 |
 | `coding-style.md` | 代码风格偏好 |
 | `projects.md` | 项目协作协议（跨设备接手项目的标准流程） |
+| `troubleshooting.md` | 踩坑速查索引（按症状查解决方案） |
+| `emergency.md` | 应急与回滚（危险操作清单 + 恢复方法） |
 
 ## 贡献规则（给 Agent 的）
 
