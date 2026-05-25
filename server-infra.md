@@ -34,6 +34,7 @@
 
 ## 注意事项
 
-- [ ] 不要动 `/opt/ai-interviewer/` 下的任何东西
-- [ ] 不要占用 8000、8443 端口
+- [ ] **`/opt/ai-interviewer/` 是活跃开发项目（mocky·），可以修改但必须先读 DEVLOG.md。** [更新 2025-07-14] 此项目已进入持续迭代，不再是"不要动"的状态。
+- [ ] 不要占用 8000、8443 端口（分别被 ai-interviewer 和 nginx HTTPS 使用）
 - [ ] 数据库文件在 `/opt/house-system/data/house.db`，部署时不要覆盖
+- [ ] **所有项目的工作状态记录在各项目根目录的 `DEVLOG.md` 中，详见 `projects.md`。**

@@ -16,6 +16,9 @@
 | `deployment.md` | 部署/CI-CD/运维相关 |
 | `server-infra.md` | 我的服务器环境信息 |
 | `coding-style.md` | 代码风格偏好 |
+| `platform-setup.md` | 跨平台配置指南（换设备/换账号时看这个） |
+| `projects.md` | 项目协作协议（跨设备接手项目的标准流程） |
+| `cursorrules-template` | Cursor 项目规则模板（复制到项目根目录改名 `.cursorrules`） |
 
 ## 贡献规则（给 Agent 的）
 
