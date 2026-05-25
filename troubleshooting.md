@@ -29,6 +29,7 @@
 | 部署后数据丢了 | rsync 覆盖了数据库文件 | rsync 命令里必须 `--exclude data/`；恢复看备份 |
 | 部署后 import 报错 | WorkingDirectory 和代码实际位置不一致 | 检查 systemd service 文件里的 WorkingDirectory 路径 |
 | GitHub Actions 部署失败 | SSH key 过期或 Secrets 没配 | 检查 GitHub repo → Settings → Secrets 里的密钥是否正确 |
+| GitHub push 被 reject (fetch first) | 远程有 Actions 自动 commit 的新内容 | `git pull --rebase` 后再 push |
 
 ## Python / 后端类
 
@@ -36,6 +37,8 @@
 |------|------|------|
 | ModuleNotFoundError | 没激活 venv 或依赖没装 | `source /opt/项目名/venv/bin/activate && pip install -r requirements.txt` |
 | cron 定时任务不执行 | cron 环境里没有 PATH 和 venv | 脚本里写绝对路径，开头加 `source /opt/项目名/venv/bin/activate` |
+| MiniMax API 返回 JSON 解析失败 | M2.7 模型在 JSON 前输出 `<think>...</think>` | 解析前用 `re.sub(r'<think>[\s\S]*?</think>', '', response).strip()` 剥掉 think 标签 |
+| MiniMax API 报 model not found | Token Plan 不支持该模型名 | 用 `MiniMax-M2.7`，不要用 `MiniMax-Text-01` |
 
 ## 前端类
 
