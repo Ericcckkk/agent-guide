@@ -24,6 +24,24 @@
 | mocky· | root@101.42.94.249 | /opt/ai-interviewer/ | AI 模拟面试工具，语音实时交互 |
 | 买房决策系统 | root@101.42.94.249 | /opt/house-system/ | 买房数据分析平台 |
 
+### mocky·
+
+- **技术栈：** FastAPI + WebSocket + MiniMax Realtime API（语音）
+- **前端：** 原生 HTML/CSS/JS，在 /opt/ai-interviewer/ui/
+- **部署：** systemd（ai-interviewer.service），项目里有 docker-compose.yml 但未启用
+- **CI/CD：** GitHub Actions + SCP（见 .github/workflows/deploy.yml）
+- **域名：** interview.eric-ai.top:8443（Nginx SSL，Let's Encrypt）
+- **端口：** 8000（uvicorn）→ 8443（nginx HTTPS 反代）
+- **关键注意：** .env 里有三个 MiniMax API key 轮换；重启用 `systemctl restart ai-interviewer`
+
+### 买房决策系统
+
+- **技术栈：** FastAPI + SQLite
+- **部署：** systemd，Nginx 反代 8080 → 8001
+- **端口：** 8001（FastAPI）、8080（Nginx 前端+API 代理）
+- **数据库：** /opt/house-system/data/house.db（部署时不要覆盖）
+- **同步：** rsync
+
 ---
 
 ## DEVLOG.md 格式规范
@@ -72,3 +90,27 @@
 - "看看 101.42.94.249 上的 ai-interviewer，把移动端适配做了"
 
 你要做的：解析出项目 → 查项目清单找到服务器和路径 → SSH cat DEVLOG.md → 开工。
+
+---
+
+## 项目技术速查
+
+### 买房决策系统
+
+| 项 | 值 |
+|----|-----|
+| GitHub | https://github.com/Ericcckkk/house-decision |
+| 域名 | house.eric-ai.top（未备案，目前用 IP:8080 访问） |
+| 前端 | Tailwind + Alpine.js + ECharts，PWA，静态文件在 /opt/house-system/dashboard/ |
+| 后端 | FastAPI + SQLite，端口 8001（仅 127.0.0.1） |
+| 反代 | Nginx 监听 8080，/ → 静态文件，/api/ → 8001 |
+| 服务 | systemd: house-api |
+| 数据库 | /opt/house-system/data/house.db（部署时不要覆盖） |
+| 定时任务 | cron 每日 6:00 跑 /opt/house-system/run_scraper.sh |
+| 部署方式 | GitHub Actions → rsync 到 /opt/house-system/repo/ → restart service |
+| Python | 3.12，venv 在 /opt/house-system/venv/ |
+
+**注意事项：**
+- [ ] **不要占用 8001 端口。** 这是买房系统 API 的端口。
+- [ ] **不要覆盖 house.db。** 部署时 rsync 应排除 data/ 目录。
+- [ ] **Nginx 配置在 /etc/nginx/sites-enabled/house。** 改完要 nginx -t && systemctl reload nginx。
