@@ -20,3 +20,8 @@
 - [ ] **端口 8000 可能被其他项目占。** 不要假设端口空闲，先查。
 - [ ] **腾讯云域名需要 ICP 备案才能用。** 如果域名没备案，直接用 IP:端口 访问。
 - [ ] **rsync 目标目录要提前创建好。** 否则首次部署可能失败。
+- [ ] **rsync 要排除数据文件。** SQLite 数据库、用户上传文件等不能被部署覆盖，用 `--exclude` 排除 data/ 目录。
+- [ ] **PWA 图标不要用 cairosvg 生成。** 服务器和 Windows 上装 cairo 都很麻烦，用纯 Python（struct + zlib）直接写 PNG 字节流更可靠。
+- [ ] **systemd 服务的 WorkingDirectory 要和代码实际位置一致。** 如果 rsync 同步到 repo/ 子目录，WorkingDirectory 也要指向那里，否则 import 找不到模块。
+- [ ] **Nginx 改完配置必须 nginx -t 再 reload。** 不要直接 restart，语法错误会导致整个 Nginx 挂掉影响所有站点。
+- [ ] **cron 定时任务里要写绝对路径并激活 venv。** 不要依赖 PATH 环境变量，cron 的环境和 shell 不一样。
