@@ -24,5 +24,5 @@
 ## Git 同步纪律
 
 - [ ] **动手前先 git pull。** 开始任何项目工作前，先拉取最新代码，确保不会基于过时的版本开发。
-- [ ] **做完后 push + 更新 DEVLOG。** 工作完成后，更新 DEVLOG.md 并 commit + push，让其他设备/agent 能看到最新状态。
+- [ ] **每完成一个独立任务就 push + 更新 DEVLOG。** 不要攒着等对话结束。加完一个功能、修完一个 bug，确认没问题就立刻 commit + push + 更新 DEVLOG.md。防止进度丢失。
 - [ ] **冲突时以服务器 DEVLOG 为准。** 如果本地和远程有分歧，SSH 到服务器 cat DEVLOG.md 确认真实状态。
